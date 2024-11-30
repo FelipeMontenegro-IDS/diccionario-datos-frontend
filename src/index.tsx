@@ -3,14 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { FluentProvider, webLightTheme } from '@fluentui/react-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <FluentProvider theme={webLightTheme}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </FluentProvider>
+</QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
