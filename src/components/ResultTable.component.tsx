@@ -1,16 +1,20 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import { Avatar, Button, PresenceBadgeStatus, Table, TableBody, TableCell, TableCellLayout, TableHeader, TableHeaderCell, TableRow } from "@fluentui/react-components";
 import { OpenRegular, EditRegular, FolderRegular, VideoRegular, PeopleRegular, DocumentPdfRegular } from "@fluentui/react-icons";
-import { TableStructure } from '../interfaces/TableStructure';
-import { PenRegular ,Checkmark20Regular , Dismiss20Regular, NumberSymbol20Regular} from "@fluentui/react-icons";
+import { ITableStructure } from '../interfaces/ITableStructure';
+import { PenRegular ,Checkmark20Regular , Dismiss20Regular, NumberSymbol20Regular ,Key20Regular,KeyMultiple20Regular } from "@fluentui/react-icons";
 import { GetIconsByDataType } from '../utils/funtionsHelper';
 
 export interface IResult{
-    items:TableStructure[]
+    items:ITableStructure[],
+    // button:ReactNode,
+    onButtonClick: (item: ITableStructure) => void;
 }
 
-const ResultTable = ({
-    items
+const ResultTableComponent = ({
+    items,
+    // button,
+    onButtonClick
 }:IResult) => {
 
     const columns = [
@@ -23,7 +27,7 @@ const ResultTable = ({
         { columnKey: "columnDescription", label: "Descripción", labelWidth: '200px' },
         { columnKey: "isPrimaryKey", label: "Llave Primaria", labelWidth: '140px' },
         { columnKey: "isForeignKey", label: "Referencia", labelWidth: '140px' },
-        { columnKey: "", label: "", labelWidth: '200px' },
+        { columnKey: "", label: "", labelWidth: '200px'},
     ];
 
     return (
@@ -74,17 +78,20 @@ const ResultTable = ({
                             </TableCell>
                             <TableCell  style={{width: "100px" }}>
                                 <TableCellLayout>
+                                     { item.isPrimaryKey ?   <Key20Regular /> : null }
                                     {item.isPrimaryKey}
                                 </TableCellLayout>
                             </TableCell>
                             <TableCell  style={{width: "100px" }}>
                                 <TableCellLayout>
+                                    {item.isForeignKey ? <KeyMultiple20Regular /> : null}
                                     {item.isForeignKey}
                                 </TableCellLayout>
                             </TableCell>
                             <TableCell  style={{width: "100px" }}>
                                 <TableCellLayout>
-                                    <Button appearance='primary' icon={<PenRegular style={{color:'white'}} />}/>
+                                    <Button appearance='primary' onClick={() => onButtonClick(item)} icon={<PenRegular style={{color:'white'}} />}/>
+                                    {/* {button} */}
                                 </TableCellLayout>
                             </TableCell>
                         </TableRow>
@@ -96,5 +103,5 @@ const ResultTable = ({
 }
 
 export {
-    ResultTable
+    ResultTableComponent as ResultTable
 };

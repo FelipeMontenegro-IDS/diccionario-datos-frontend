@@ -1,4 +1,4 @@
-export class Table {
+export class ITable {
     tableId:string;
     tableName:string;
     creationDate:string;

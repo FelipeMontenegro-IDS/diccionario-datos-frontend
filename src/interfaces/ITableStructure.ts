@@ -1,4 +1,4 @@
-export class TableStructure{
+export class ITableStructure{
     tableName:string;
     columnName:string;
     dataType:string;
@@ -8,6 +8,7 @@ export class TableStructure{
     columnDescription:string;
     isPrimaryKey:string;
     isForeignKey:string;
+    schemaName:string;
 
     constructor(){
         this.tableName = "";
@@ -19,5 +20,6 @@ export class TableStructure{
         this.columnDescription = "";
         this.isPrimaryKey = "";
         this.isForeignKey = "";
+        this.schemaName = "";
     }
 }

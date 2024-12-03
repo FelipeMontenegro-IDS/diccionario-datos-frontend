@@ -1,4 +1,4 @@
-export class Schema{
+export class ISchema{
     id:string;
     name:string;
 
